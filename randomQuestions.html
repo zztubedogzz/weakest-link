@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Game</title>
+    <style>
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .question-container {
+            margin-top: 10px;
+        }
+
+        .soundboard-container {
+            float: right;
+            margin-left: 20px;
+        }
+
+        .sound-button {
+            width: 100px;
+            height: 50px;
+            margin-bottom: 10px;
+            background-color: #ccc;
+            cursor: pointer;
+            text-align: center;
+            line-height: 50px;
+        }
+    </style>
+    <script>
+        // Define the questions for each level
+        var simpleQuestions = [
+            "What color is the sky?",
+            "How many legs does a cat have?"
+        ];
+        var intermediateQuestions = [
+            "What is the capital of France?",
+            "Who painted the Mona Lisa?"
+        ];
+        var difficultQuestions = [
+            "What is the square root of 144?",
+            "In which year was the World Wide Web invented?"
+        ];
+
+        // Create an array to store the asked questions for each level
+        var askedSimpleQuestions = [];
+        var askedIntermediateQuestions = [];
+        var askedDifficultQuestions = [];
+
+        var askedSimpleCount = 0;
+        var askedIntermediateCount = 0;
+        var askedDifficultCount = 0;
+
+        function getRandomQuestion(level) {
+            var question;
+            var questionArray;
+            var askedQuestionsArray;
+            var askedCount;
+
+            switch (level) {
+                case "simple":
+                    questionArray = simpleQuestions;
+                    askedQuestionsArray = askedSimpleQuestions;
+                    askedCount = askedSimpleCount;
+                    break;
+                case "intermediate":
+                    questionArray = intermediateQuestions;
+                    askedQuestionsArray = askedIntermediateQuestions;
+                    askedCount = askedIntermediateCount;
+                    break;
+                case "difficult":
+                    questionArray = difficultQuestions;
+                    askedQuestionsArray = askedDifficultQuestions;
+                    askedCount = askedDifficultCount;
+                    break;
+                default:
+                    return "Invalid level";
+            }
+
+            // Check if all questions have been asked
+            if (askedCount === questionArray.length) {
+                return "Out of questions";
+            }
+
+            // Randomly select a question from the selected level
+            if (questionArray.length > 0) {
+                question = questionArray[Math.floor(Math.random() * questionArray.length)];
+                questionArray.splice(questionArray.indexOf(question), 1); // Remove the question from the question array
+            } else {
+                return getRandomQuestion(level); // Retry if no more questions in this level
+            }
+
+            askedQuestionsArray.push(question); // Add the asked question to the askedQuestions array
+            askedCount++;
+
+            return question;
+        }
+
+        function askQuestion(level) {
+            var question = getRandomQuestion(level);
+            var questionElement = document.getElementById("question");
+
+            if (question === "Out of questions") {
+                questionElement.innerHTML = question;
+                if (level === "simple") {
+                    document.getElementById("btnAsk-simple").disabled = true;
+                } else if (level === "intermediate") {
+                    document.getElementById("btnAsk-intermediate").disabled = true;
+                } else if (level === "difficult") {
+                    document.getElementById("btnAsk-difficult").disabled = true;
+                }
+            } else {
+                questionElement.innerHTML = question;
+            }
+        }
+
+        function playSound(sound) {
+            // Play the sound based on the passed-in sound parameter
+            // Replace the console.log statement with your sound-playing logic
+            console.log("Playing sound: " + sound);
+        }
+    </script>
+</head>
+<body>
+    <h1>Quiz Game</h1>
+    <div class="button-container">
+        <button id="btnAsk-simple" onclick="askQuestion('simple')">Ask Simple Question</button>
+        <button id="btnAsk-intermediate" onclick="askQuestion('intermediate')">Ask Intermediate Question</button>
+        <button id="btnAsk-difficult" onclick="askQuestion('difficult')">Ask Difficult Question</button>
+    </div>
+    <div class="question-container">
+        <p id="question"></p>
+    </div>
+    <div class="soundboard-container">
+        <table>
+            <tr>
+                <td><div class="sound-button" onclick="playSound('Sound 1')">Intro</div></td>
+                <td><div class="sound-button" onclick="playSound('Sound 2')">Idle</div></td>
+                <td><div class="sound-button" onclick="playSound('Sound 3')">3:00</div></td>
+            </tr>
+            <tr>
+                <td><div class="sound-button" onclick="playSound('Sound 4')">2:50</div></td>
+                <td><div class="sound-button" onclick="playSound('Sound 5')">2:40</div></td>
+                <td><div class="sound-button" onclick="playSound('Sound 6')">2:30</div></td>
+            </tr>
+            <tr>
+                <td><div class="sound-button" onclick="playSound('Sound 7')">Sound 7</div></td>
+                <td><div class="sound-button" onclick="playSound('Sound 8')">Sound 8</div></td>
+                <td><div class="sound-button" onclick="playSound('Sound 9')">Sound 9</div></td>
+            </tr>
+            <tr>
+                <td><div class="sound-button" onclick="playSound('Sound 10')">Vote Start</div></td>
+                <td><div class="sound-button" onclick="playSound('Sound 11')">Voted Out</div></td>
+                <td><div class="sound-button" onclick="playSound('Sound 12')">Head2Head</div></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
