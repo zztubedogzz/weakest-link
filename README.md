@@ -17,3 +17,8 @@ weakest-link
   | - .data
     | - variables.json
 ```
+The `weakest-link/.env` file contains environmental variables such as database connection for frontend-backend sync.
+
+The `weakest-link/.data/variables.json` file contains variables such as price chain, currency, etc.
+
+Editing other files may broke the application.
