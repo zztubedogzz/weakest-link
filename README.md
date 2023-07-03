@@ -7,3 +7,13 @@ Weakest link TV show app for home
 - [ ] Back end-en legyen látható ki mennyit bankolt, jó/rossz válaszok száma és aránya, ennek függvényében ki a leggyengébb/legerősebb láncszem
 - [ ] Front end-en NE legyen látható ki mennyit rontott és bankolt
 - [ ] Back end-ben egy adatbázisba lehessen összegyűjteni kérdéseket és a válaszokat, majd írjon ki egy randomot gombnyomásra 
+
+---
+# Guide
+Edit these files to configure it to your own needs:
+```
+weakest-link
+  | - .env
+  | - .data
+    | - variables.json
+```
